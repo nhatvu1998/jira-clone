@@ -1,0 +1,34 @@
+<a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" [nzPlacement]="'bottomCenter'">
+  <i nz-icon nzType="bell" nzTheme="fill"></i>
+</a>
+
+<nz-dropdown-menu #menu="nzDropdownMenu" style="width: 500px">
+  <nz-list class="demo-loadmore-list" [nzLoading]="initLoading">
+    <nz-list-item *ngFor="let item of (notifs$ | async)">
+      <ng-container>
+        <nz-list-item-meta
+          nzAvatar="assets/images/icon-jira.svg"
+          nzDescription="{{item.message}}"
+        >
+          <nz-list-item-meta-title>
+            <a href="https://ng.ant.design">{{ item.entityName }}</a>
+            <nz-row>
+              <span class="ant-list-timestamp">{{ item.timestamp }}</span>
+            </nz-row>
+          </nz-list-item-meta-title>
+        </nz-list-item-meta>
+        <ul nz-list-item-actions>
+          <nz-list-item-action><a (click)="edit(item)"><i nz-icon nzType="close" nzTheme="outline"></i></a></nz-list-item-action>
+          <nz-list-item-action><a (click)="edit(item)"><label nz-checkbox [(ngModel)]="item.status"></label></a></nz-list-item-action>
+        </ul>
+      </ng-container>
+    </nz-list-item>
+    <div class="loadmore" nz-list-load-more>
+      <button nz-button *ngIf="!loadingMore">loading more</button>
+    </div>
+  </nz-list>
+<!--    <li nz-menu-item>1st menu item</li>-->
+<!--    <li nz-menu-item>2nd menu item</li>-->
+<!--    <li nz-menu-divider></li>-->
+<!--    <li nz-menu-item nzDisabled>disabled menu item</li>-->
+</nz-dropdown-menu>
